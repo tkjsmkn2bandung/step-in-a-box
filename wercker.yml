@@ -1,0 +1,33 @@
+build:
+  box:
+    id: alpine
+    cmd: /bin/sh
+  steps:
+    - script:
+        name: install apk packages
+        code: |
+          apk update && apk add ca-certificates openssh curl jq
+    - script:
+        name: move scripts
+        code: |
+          mv init.sh /
+          mv run.sh /
+    - script:
+        name: test
+        code: |
+          mkdir -p /workspace
+          cd /workspace
+          echo "truth" > foo.template
+          /run.sh /workspace
+          rm -rf /workspace
+    - script:
+        name: prune
+        code: |
+          rm -rf /pipeline
+    - internal/docker-push:
+        repository: quay.io/wercker/step-in-a-box
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        registry: https://quay.io
+        entrypoint: /run.sh
+        tag: latest
