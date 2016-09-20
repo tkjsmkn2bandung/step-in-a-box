@@ -2,13 +2,16 @@
 source /init.sh
 
 BASE_URL=https://app.wercker.com
-OWNER=wercker
-NAME=bash-template
+#OWNER=wercker
+OWNER=$(echo "$1" | cut -d/ -f 1)
+NAME=$(echo "$1" | cut -d/ -f 2)
+#NAME=bash-template
 FULL_URL="${BASE_URL}/api/v2/steps/${OWNER}/${NAME}/*"
 TARBALL_URL=$(curl "${FULL_URL}" | jq -r '.tarballUrl')
 
+
 # cd to the workspace
-cd "$1" || exit
+cd "$2" || exit
 
 WORKING=working
 rm -rf ${WORKING}

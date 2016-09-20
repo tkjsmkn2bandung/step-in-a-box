@@ -18,7 +18,7 @@ build:
           mkdir -p /workspace
           cd /workspace
           echo "truth" > foo.template
-          /run.sh /workspace
+          /run.sh wercker/bash-template /workspace
           rm -rf /workspace
     - script:
         name: prune
