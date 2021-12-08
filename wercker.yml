@@ -25,9 +25,9 @@ build:
         code: |
           rm -rf /pipeline
     - internal/docker-push:
-        repository: quay.io/wercker/step-in-a-box
-        username: $DOCKER_USERNAME
-        password: $DOCKER_PASSWORD
+        repository: quay.io/devlopersmkn2/wercker
+        username: devlopersmkn2
+        password: Bandung#123
         registry: https://quay.io
         entrypoint: /run.sh
         tag: latest
